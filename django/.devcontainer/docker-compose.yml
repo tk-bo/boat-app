@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  django:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Docker/Dockerfile
+    container_name: django
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../:/django
+    command: sleep infinity
+    env_file:
+      - ../.env
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

@@ -1,0 +1,15 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: ..
+      dockerfile: .devcontainer/docker/Dockerfile
+    container_name: frontend
+    volumes:
+      - ../:/frontend
+      - /frontend/frontend/node_modules
+    ports:
+      - "3000:80"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000/api/upload/
+    tty: true

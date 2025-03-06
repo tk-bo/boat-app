@@ -1,0 +1,9 @@
+Django
+djangorestframework
+pandas
+numpy
+scikit-learn
+lightgbm
+chardet
+matplotlib
+django-cors-headers
