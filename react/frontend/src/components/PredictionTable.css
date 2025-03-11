@@ -1,0 +1,31 @@
+.prediction-table-container {
+    overflow-x: auto;
+    margin: 20px 100px;
+  }
+  
+  .prediction-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+  }
+  
+  .prediction-table th,
+  .prediction-table td {
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    text-align: center;
+  }
+  
+  .prediction-table th {
+    background-color: #3e3e3e;
+    color: white;
+  }
+  
+  .prediction-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .prediction-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  

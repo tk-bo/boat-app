@@ -1,0 +1,21 @@
+  .prediction-search-container {
+    display: flex;
+    justify-content: left;
+    margin: 10px 112px;
+  }
+  
+  .prediction-search-input {
+    width: 300px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border: 2px solid #161616;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .prediction-search-input:focus {
+    border-color: #4a4a4a;
+    box-shadow: 0 0 5px rgba(0, 170, 255, 0.5);
+  }
+  
