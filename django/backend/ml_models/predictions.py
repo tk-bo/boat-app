@@ -1,8 +1,8 @@
 from .create_model import model, label_encode, calculate_std, list_std, place_code, class_mapping, from_mapping
 from .mymodule import get_race_entry
-from .create_model import model
 from django.conf import settings
 import os
+import numpy as np
 
 def process_and_predict(file_path):
     # アップロードされたファイルを読み込み、処理
@@ -35,31 +35,34 @@ def process_and_predict(file_path):
 
     # 予測を実行
     pred_probs = model.predict(X_pred, num_iteration=model.best_iteration)
-    pred_classes = pred_probs.argmax(axis=1)
+    # 各選手の予測クラス（argmax）を取得し、解釈用に保持
+    pred_classes = np.argmax(pred_probs, axis=1)
+    race_entry_df['pred_class'] = pred_classes
+    # 1着になる確率（クラス0の確率）を勝率として使用
+    race_entry_df['win_prob'] = pred_probs[:, 0]
 
-    # 結果を整形
     predictions = []
-    for idx, pred in enumerate(pred_classes):
-        race_id = race_entry_df.iloc[idx]['レースID']
-        boat_number = race_entry_df.iloc[idx]['艇番']
-        player_number = race_entry_df.iloc[idx]['選手登番']
-
-        # 9番目と10番目の数字を抽出して会場を決定
+    # レースIDごとにグループ化して、各レース内で順位付けを行う
+    for race_id, group in race_entry_df.groupby('レースID'):
+        # 勝率の高い順にソート
+        sorted_group = group.sort_values(by='win_prob', ascending=False)
+        
+        # レースIDから会場コードとレース番号を取得
         race_id_str = str(race_id)
         place_code_num = int(race_id_str[8:10])  # 9番目と10番目の数字を取得
-        # 11番目と12番目の数字でレース番号を取得
-        race_number = int(race_id_str[10:12])  # 11番目と12番目の数字を取得
-        
-        # 会場名をplace_codeから取得
-        venue = [key for key, value in place_code.items() if value == place_code_num][0]  # place_code_numに対応する会場名
+        race_number = int(race_id_str[10:12])      # 11番目と12番目の数字を取得
+        venue = [key for key, value in place_code.items() if value == place_code_num][0]
 
-        predictions.append({
-            'venue': venue,  # 会場を追加
-            'race_number': race_number,  # レース番号を追加
-            'boat_number': boat_number,
-            'player_number': player_number,
-            'interpretation': interpret_prediction(pred)
-        })
+        # 並べ替えた順に順位（1～6）を付与し、interpret_prediction() で解釈を追加
+        for rank, (_, row) in enumerate(sorted_group.iterrows(), start=1):
+            predictions.append({
+                'venue': venue,
+                'race_number': race_number,
+                'boat_number': row['艇番'],
+                'player_number': row['選手登番'],
+                'rank': rank,  # 1～6の順位
+                'interpretation': interpret_prediction(row['pred_class'])
+            })
 
     # 出力先ファイルのパス
     output_path = os.path.join(settings.BASE_DIR, 'backend', 'ml_models', 'data', 'output', 'predictions.txt')
@@ -67,18 +70,18 @@ def process_and_predict(file_path):
     # 結果をテキストファイルに書き込み
     with open(output_path, 'w', encoding='utf-8') as f:
         for prediction in predictions:
-            player_number = prediction['player_number']
-            venue = prediction['venue']
-            race_number = prediction['race_number']
-            interpretation = prediction['interpretation']
-            f.write(f"Player Number: {player_number}, Venue: {venue}, Race Number: {race_number}, Interpretation: {interpretation}\n")
+            f.write(
+                f"Player Number: {prediction['player_number']}, Venue: {prediction['venue']}, "
+                f"Race Number: {prediction['race_number']}, Rank: {prediction['rank']}, "
+                f"Interpretation: {prediction['interpretation']}\n"
+            )
 
     return predictions
 
 def interpret_prediction(pred):
     if pred == 0:
-        return '1～2着'
+        return '1~2着'
     elif pred == 1:
-        return '3～4着'
+        return '3~4着'
     else:
-        return '5～6着'
+        return '5~6着'

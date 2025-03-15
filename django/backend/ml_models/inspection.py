@@ -82,7 +82,7 @@ with open(output_file_path, 'w', encoding='utf-8') as f:
         race_id = race_df.iloc[idx]['レースID']
         boat_number = race_df.iloc[idx]['艇番']
         player_number = race_df.iloc[idx]['選手登番']
-        result = f"{race_id}, 艇番: {boat_number}, 選手登番: {player_number}, 予測着順: {pred} (0:12着, 1:34着, 2:5~6着)\n"
+        result = f"{race_id}, 艇番: {boat_number}, 選手登番: {player_number}, 予測着順: {pred} (0:1~2着, 1:3~4着, 2:5~6着)\n"
         f.write(result)
 
 # 特徴量の重要度を取得

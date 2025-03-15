@@ -1,66 +1,81 @@
 .file-upload-container {
-    border: 2px dashed #aaa;
-    padding: 20px; /* 左右に余白を追加 */
-    text-align: center;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-    margin: 20px 120px; /* 下側に余白を追加してボタンと分離 */
-  }
-  
-  .file-upload-input {
-    display: none;
-  }
-  
-  .file-upload-label {
-    display: block;
-    margin: 0 auto;  /* 横方向中央寄せ */
-    padding: 10px 20px;
-    border: 1px solid #007bff;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-    width: fit-content;
-  }
-  
-  .file-upload-file-name {
-    margin-top: 10px;
-  }
-  
-  .file-upload-button {
-    padding: 10px 20px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .file-upload-button:disabled {
-    background-color: #aaa;
-    cursor: not-allowed;
-  }
-  
-  .file-upload-message {
-    margin-top: 10px;
-    font-size: 12px;
-    color: #666;
-  }
-  
-  .error-message {
-    color: red;
-    margin-top: 10px;
-    text-align: center;
-  }
-  
-  .success-message {
-    color: green;
-    margin-top: 10px;
-    text-align: center;
-  }
-  
-  /* submit-button-container でボタンを中央に配置 */
-  .submit-button-container {
-    text-align: center;
-  }
-  
+  border: 2px dashed #aaa;
+  padding: 20px; /* 左右に余白を追加 */
+  text-align: center;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  margin: 20px 120px; /* 下側に余白を追加してボタンと分離 */
+}
+
+.file-upload-input {
+  display: none;
+}
+
+.file-upload-label {
+  display: block;
+  margin: 0 auto;  /* 横方向中央寄せ */
+  padding: 10px 20px;
+  border: 1px solid #007bff;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  width: fit-content;
+}
+
+.file-upload-file-name {
+  margin-top: 10px;
+}
+
+.file-upload-button {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.file-upload-button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+.file-upload-message {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #666;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.success-message {
+  color: green;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* submit-button-container でボタンを中央に配置 */
+.submit-button-container {
+  text-align: center;
+}
+
+/* ダウンロードリンク用スタイル */
+.download-link-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.download-link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.download-link:hover {
+  text-decoration: underline;
+}

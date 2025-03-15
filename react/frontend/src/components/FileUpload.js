@@ -29,7 +29,6 @@ const FileUpload = ({ setPredictions }) => {
       setError("ファイルサイズが大きすぎます（最大5MB）");
       return;
     }
-    // 拡張子チェックを大文字小文字区別なく行う
     if (!selectedFile.name.toLowerCase().endsWith(".txt")) {
       setError("テキストファイル（.txt）のみアップロードできます");
       return;
@@ -77,7 +76,7 @@ const FileUpload = ({ setPredictions }) => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        {/* 点線枠のあるアップロードエリア */}
+        {/* アップロードエリア */}
         <div
           className="file-upload-container"
           onDragOver={(e) => e.preventDefault()}
@@ -94,13 +93,15 @@ const FileUpload = ({ setPredictions }) => {
             ファイルを選択
           </label>
           {file && (
-            <p className="file-upload-file-name">選択されたファイル: {file.name}</p>
+            <p className="file-upload-file-name">
+              選択されたファイル: {file.name}
+            </p>
           )}
           <p className="file-upload-message">
             または、ここにファイルをドラッグ＆ドロップ
           </p>
         </div>
-        {/* ボタンは枠の外に出して中央配置 */}
+        {/* 送信ボタン */}
         <div className="submit-button-container">
           <button
             type="submit"
@@ -113,6 +114,17 @@ const FileUpload = ({ setPredictions }) => {
       </form>
       {error && <p className="error-message">{error}</p>}
       {success && <p className="success-message">アップロード成功！</p>}
+      {/* ダウンロード元へのリンク */}
+      <div className="download-link-container">
+        <a
+          href="https://www.boatrace.jp/owpc/pc/extra/data/download.html"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="download-link"
+        >
+          ボートレースのデータダウンロードページへ
+        </a>
+      </div>
     </div>
   );
 };
