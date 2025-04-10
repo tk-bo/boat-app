@@ -75,6 +75,17 @@ const FileUpload = ({ setPredictions }) => {
 
   return (
     <div>
+        {/* ダウンロード元へのリンク */}
+        <div className="download-link-container">
+        <a
+          href="https://www.boatrace.jp/owpc/pc/extra/data/download.html"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="download-link"
+        >
+          ボートレースのデータダウンロードページへ
+        </a>
+      </div>
       <form onSubmit={handleSubmit}>
         {/* アップロードエリア */}
         <div
@@ -114,17 +125,6 @@ const FileUpload = ({ setPredictions }) => {
       </form>
       {error && <p className="error-message">{error}</p>}
       {success && <p className="success-message">アップロード成功！</p>}
-      {/* ダウンロード元へのリンク */}
-      <div className="download-link-container">
-        <a
-          href="https://www.boatrace.jp/owpc/pc/extra/data/download.html"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="download-link"
-        >
-          ボートレースのデータダウンロードページへ
-        </a>
-      </div>
     </div>
   );
 };
